@@ -11,32 +11,21 @@ export default function Card() {
         <img src={`${process.env.PUBLIC_URL}/${glumanda.image}`} alt="glumanda.name" height="200" width="200" />
         <table>
             <tbody>
-                <tr>
-                    <td>Größe</td>
-                    <td>
-                        {glumanda.size}
-                        m
-                    </td>
-                </tr>
-                <tr>
-                    <td>Gewicht</td>
-                    <td>
-                        {glumanda.weight}
-                        kg
-                    </td>
-                </tr>
-                <tr>
-                    <td>Angriff</td>
-                    <td>{glumanda.attack}</td>
-                </tr>
-                <tr>
-                    <td>Verteidigung</td>
-                    <td>{glumanda.defense}</td>
-                </tr>
-                <tr>
-                    <td>Geschwindigkeit</td>
-                    <td>{glumanda.speed}</td>
-                </tr>
+                {Object.keys(Pokemon.properties).map((property) => {
+                    const pokemonProperty = Pokemon.properties[property];
+                    return (
+                        <tr key={property}>
+                            <td>
+                                {pokemonProperty.label}
+                            </td>
+                            <td>
+                                {glumanda[property]}
+                                &nbsp;
+                                {pokemonProperty.unit}
+                            </td>
+                        </tr>
+                    );
+                })}
             </tbody>
         </table>
     </div>
