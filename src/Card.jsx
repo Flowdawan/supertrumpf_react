@@ -1,29 +1,33 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import './Card.css';
 import Pokemon from './Pokemon';
 
-const uncovered = false;
-
-export default function Card() {
-    const glumanda = new Pokemon('Glumanda', 'placeholder.png', '3.3', '6000', '70', '20', '15');
+export default function Card({
+    pokemon, uncovered, onSelectProperty, selectedProperty,
+    }) {
     const front = (
         <div className="card">
-            <h1>{ glumanda.name ? glumanda.name : 'Unbekannt' }</h1>
-            {glumanda.image && (
-            <img src={`${process.env.PUBLIC_URL}/${glumanda.image}`} alt="glumanda.name" height="200" width="200" />
+            <h1>{ pokemon.name ? pokemon.name : 'Unbekannt' }</h1>
+            {pokemon.image && (
+            <img src={`${process.env.PUBLIC_URL}/${pokemon.image}`} alt={pokemon.name} height="200" width="200" />
             )}
             <table>
                 <tbody>
                     {Object.keys(Pokemon.properties).map((property) => {
                         const pokemonProperty = Pokemon.properties[property];
                         return (
-                            <tr key={property}>
+                            <tr
+                                key={property}
+                                className={selectedProperty === property ? 'active' : ''}
+                                onClick={() => onSelectProperty(property)}
+                            >
                                 <td>
                                     {pokemonProperty.label}
                                 </td>
                                 <td>
-                                    {glumanda[property]}
+                                    {pokemon[property]}
                                     &nbsp;
                                     {pokemonProperty.unit}
                                 </td>
@@ -44,3 +48,16 @@ export default function Card() {
     }
     return back;
 }
+
+Card.propTypes = {
+    uncovered: PropTypes.bool.isRequired,
+    pokemon: PropTypes.oneOfType([PropTypes.object]).isRequired,
+    onSelectProperty: PropTypes.func,
+    selectedProperty: PropTypes.string,
+};
+
+Card.defaultProps = {
+    // eslint-disable-next-line
+    onSelectProperty: () => console.log('Missing onSelectProperty function'),
+    selectedProperty: '',
+};

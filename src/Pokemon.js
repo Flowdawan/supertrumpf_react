@@ -4,16 +4,16 @@ static properties = {
     weight: { label: 'Gewicht', unit: 'kg' },
     attack: { label: 'Angriff', unit: '' },
     defense: { label: 'Verteidigung', unit: '' },
-    speed: { label: 'Geschwindigkeit', unit: 'km/h' },
+    kp: { label: 'KP', unit: '' },
 };
 
-    constructor(name, image, size, weight, attack, defense, speed) {
+    constructor(name, image, size, weight, attack, defense, kp) {
         this.name = name;
         this.image = image;
         this.size = size;
         this.weight = weight;
         this.attack = attack;
         this.defense = defense;
-        this.speed = speed;
+        this.kp = kp;
     }
 }
